@@ -38,7 +38,7 @@ object Main : ClientModInitializer {
 
     private fun blockInteract(player: PlayerEntity, world: World, hand: Hand, pos: BlockPos, direction: Direction): ActionResult {
         if (decisionBlock(player) == ActionResult.FAIL) {
-            player.sendMessage(Text.literal("You hand 1 durability remaining tool!"), true)
+            player.sendMessage(Text.literal("You hand 1 durability remained tool !!"), true)
             return ActionResult.FAIL
         }
         return ActionResult.PASS
@@ -50,7 +50,7 @@ object Main : ClientModInitializer {
         }
 
         if (decisionBlock(player) == ActionResult.FAIL) {
-            player.sendMessage(Text.literal("You hand 1 durability remaining tool!"), true)
+            player.sendMessage(Text.literal("You hand 1 durability remained tool !!"), true)
             return ActionResult.FAIL
         }
         return ActionResult.PASS
