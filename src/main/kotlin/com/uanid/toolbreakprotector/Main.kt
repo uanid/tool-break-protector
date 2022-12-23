@@ -3,7 +3,6 @@ package com.uanid.toolbreakprotector
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback
-import net.fabricmc.fabric.api.event.player.UseItemCallback
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.ItemGroup
@@ -28,7 +27,8 @@ object Main : ClientModInitializer {
 
         if (group == ItemGroup.TOOLS || group == ItemGroup.COMBAT) {
             if (itemStack.isDamageable) {
-                if ((itemStack.maxDamage - itemStack.damage) == 1) {
+                val remainDamage = itemStack.maxDamage - itemStack.damage
+                if (remainDamage <= 2) {
                     return ActionResult.FAIL
                 }
             }
@@ -38,7 +38,7 @@ object Main : ClientModInitializer {
 
     private fun blockInteract(player: PlayerEntity, world: World, hand: Hand, pos: BlockPos, direction: Direction): ActionResult {
         if (decisionBlock(player) == ActionResult.FAIL) {
-            player.sendMessage(Text.literal("You hand 1 durability remained tool !!"), true)
+            player.sendMessage(Text.literal("You have lower durable tool"), true)
             return ActionResult.FAIL
         }
         return ActionResult.PASS
@@ -50,7 +50,7 @@ object Main : ClientModInitializer {
         }
 
         if (decisionBlock(player) == ActionResult.FAIL) {
-            player.sendMessage(Text.literal("You hand 1 durability remained tool !!"), true)
+            player.sendMessage(Text.literal("You have lower durable tool"), true)
             return ActionResult.FAIL
         }
         return ActionResult.PASS
